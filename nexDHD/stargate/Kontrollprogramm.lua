@@ -270,7 +270,7 @@ function f.schreibeAdressen()
   d:write('-- ' .. sprachen.iris .. '\n')
   d:write('-- "" ' .. sprachen.keinIDC .. '\n--\n\n')
   d:write('return {\n')
-  d:write('--{"<Name>", "<Adresse>", "<IDC>"},\n')
+  d:write('--{"<Name>", "<Address>", "<IDC>"},\n')
   for k, v in pairs(adressen) do
     d:write(string.format('  {"%s", "%s", "%s"},\n', v[1], v[2], v[3]))
   end
@@ -669,7 +669,7 @@ function f.Iriskontrolle()
     send = false
     f.zeigeMenu()
   end
-  if wurmloch == "in" and state == "Dialling" and iriscontrol == "on" and Sicherung.control == "On" then
+  if wurmloch == "in" and state == "Dialing" and iriscontrol == "on" and Sicherung.control == "On" then
     if iris == "Offline" then else
       f.irisClose()
       f.RedstoneAenderung(Farben.red, 255)
@@ -798,7 +798,7 @@ function f.newAddress(idc, neueAdresse, neuerName, weiter)
 end
 
 function f.Zielname()
-  if state == "Dialling" or state == "Connected" then
+  if state == "Dialing" or state == "Connected" then
     if remoteName == "" and wurmloch == "in" and type(adressen) == "table" then
       for j, na in pairs(adressen) do
         if remAddr == na[2] then
