@@ -850,7 +850,7 @@ function f.aktualisiereStatus()
   end
   if state == "Idle" then
     StatusName = sprachen.StatusNameUntaetig
-  elseif state == "Dialling" then
+  elseif state == "Dialing" then
     StatusName = sprachen.StatusNameWaehlend
   elseif state == "Connected" then
     StatusName = sprachen.StatusNameVerbunden
@@ -1238,7 +1238,7 @@ function f.dial(name, adresse)
     remoteName = name
     f.zeigeNachricht(sprachen.waehlen .. "<" .. string.sub(remoteName, 1, xVerschiebung + 12) .. "> <" .. adresse .. ">")
   end
-  state = "Dialling"
+  state = "Dialing"
   wurmloch = "out"
   local ok, ergebnis = sg.dial(adresse)
   if ok == nil then
@@ -1768,7 +1768,7 @@ function f.GDO_aufwecken()
 end
 
 function o.sgDialOut()
-  state = "Dialling"
+  state = "Dialing"
   wurmloch = "out"
   direction = "Outgoing"
   f.GDO_aufwecken()
