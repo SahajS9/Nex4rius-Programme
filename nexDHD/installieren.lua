@@ -1,4 +1,4 @@
--- pastebin run -f YVqKFnsP
+-- pastebin run -f wtahbiq0
 -- nexDHD von Nex4rius
 -- https://github.com/Nex4rius/Nex4rius-Programme/tree/master/nexDHD
 
@@ -11,7 +11,7 @@ else
   CC = true
   local monitor = peripheral.find("monitor")
   if not monitor then
-    print("keinen >Advanced Monitor< gefunden")
+    print("no >Advanced Monitor< found")
   end
   term.redirect(monitor)
   term.clear()
@@ -50,16 +50,16 @@ local wget = loadfile("/bin/wget.lua") or function(option, url, ziel)
   end
   if http.checkURL(url) then
     if fs.exists(ziel) and option ~= "-f" then
-      printError("<Fehler> Ziel existiert bereits")
+      printError("<Fehler> Target already exists")
       return
     else
-      term.write("Starte Download ... ")
+      term.write("Start Download ... ")
       local timer = os.startTimer(30)
       http.request(url)
       while true do
         local event, id, data = os.pullEvent()
         if event == "http_success" then
-          print("erfolgreich")
+          print("Successful")
           local d = io.open(ziel, "w")
           d:write(data.readAll())
           d:close()
