@@ -37,6 +37,9 @@ if OC then
   computer = require("computer")
   event = require("event")
   unicode = require("unicode")
+  alarm = require("component").os_alarm
+      alarm.setAlarm("klaxon2")
+      alarm.setRange(Integer:15)
   gpu = component.getPrimary("gpu")
   local a = gpu.setForeground
   local b = gpu.setBackground
@@ -160,9 +163,7 @@ v.IDC_Anzahl                    = 0
 v.reset_uptime                  = computer.uptime()
 v.reset_time                    = os.time()
 
-alarm = require("component").os_alarm
-      alarm.setAlarm("klaxon2")
-      alarm.setRange(Integer:15)
+
 
 local adressen, alte_eingabe, anwahlEnergie, ausgabe, chevron, direction, eingabe, energieMenge, ergebnis, gespeicherteAdressen, sensor, sectime, letzteNachrichtZeit, alte_modem_message
 local iris, letzteNachricht, locAddr, mess, mess_old, ok, remAddr, result, RichtungName, sendeAdressen, sideNum, state, StatusName, version, letzterAdressCheck, c, e, d, k, r, Farben
