@@ -38,8 +38,6 @@ if OC then
   event = require("event")
   unicode = require("unicode")
   alarm = require("component").os_alarm
-      alarm.setAlarm("klaxon2")
-      alarm.setRange(Integer:15)
   gpu = component.getPrimary("gpu")
   local a = gpu.setForeground
   local b = gpu.setBackground
