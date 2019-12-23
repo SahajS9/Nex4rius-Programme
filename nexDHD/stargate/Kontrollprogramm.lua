@@ -160,6 +160,10 @@ v.IDC_Anzahl                    = 0
 v.reset_uptime                  = computer.uptime()
 v.reset_time                    = os.time()
 
+alarm = require("component").os_alarm
+      alarm.setAlarm("klaxon2")
+      alarm.setRange(Integer:15)
+
 local adressen, alte_eingabe, anwahlEnergie, ausgabe, chevron, direction, eingabe, energieMenge, ergebnis, gespeicherteAdressen, sensor, sectime, letzteNachrichtZeit, alte_modem_message
 local iris, letzteNachricht, locAddr, mess, mess_old, ok, remAddr, result, RichtungName, sendeAdressen, sideNum, state, StatusName, version, letzterAdressCheck, c, e, d, k, r, Farben
 
@@ -634,6 +638,7 @@ function f.Iriskontrolle()
   if state == "Dialing" then
     messageshow = true
     AddNewAddress = true
+    alarm.activate()
   end
   if direction == "Incoming" and incode == Sicherung.IDC and Sicherung.control == "Off" then
     IDCyes = true
@@ -681,6 +686,7 @@ function f.Iriskontrolle()
     k = "open"
   end
   if state == "Idle" and k == "close" and Sicherung.control == "On" then
+    alarm.activate()
     outcode = nil
     if iris == "Offline" then else
       f.irisOpen()
@@ -695,6 +701,7 @@ function f.Iriskontrolle()
   end
   if state == "Idle" and Sicherung.control == "On" then
     iriscontrol = "on"
+    alarm.activate()
   end
   if state == "Closing" then
     send = true
@@ -724,6 +731,7 @@ function f.Iriskontrolle()
     k = "close"
   end
   if state == "Connected" and direction == "Outgoing" and send == true then
+    alarm.deactivate()
     if outcode == "-" or outcode == nil then
       sg.sendMessage_alt("Adressliste", f.sendeAdressliste())
     else
