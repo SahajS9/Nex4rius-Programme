@@ -105,6 +105,8 @@ local ersetzen                  = loadfile("/stargate/sprache/ersetzen.lua")(spr
 
 local sg                        = component.getPrimary("stargate")
 local screen                    = component.getPrimary("screen") or {}
+local alarm                     = component.os_alarm
+alarm.setRange(2)
 
 local Bildschirmbreite, Bildschirmhoehe = gpu.getResolution()
 local max_Bildschirmbreite, max_Bildschirmhoehe = gpu.maxResolution()
@@ -152,6 +154,7 @@ local LampenGruen               = false
 local LampenRot                 = false
 local VersionUpdate             = false
 local reset                     = false
+
 
 Taste.Koordinaten               = {}
 Taste.Steuerunglinks            = {}
@@ -637,10 +640,11 @@ function f.Iriskontrolle()
   if state == "Dialing" then
     messageshow = true
     AddNewAddress = true
-    alarm.activate()
   end
   if direction == "Incoming" and incode == Sicherung.IDC and Sicherung.control == "Off" then
     IDCyes = true
+    alarm.setAlarm("incoming")
+    alarm.activate()
     f.RedstoneAenderung(Farben.black, 255)
     if iris == "Closed" or iris == "Closing" or LampenRot == true then else
       f.Colorful_Lamp_Farben(992)
@@ -685,7 +689,7 @@ function f.Iriskontrolle()
     k = "open"
   end
   if state == "Idle" and k == "close" and Sicherung.control == "On" then
-    alarm.activate()
+    alarm.deactivate()
     outcode = nil
     if iris == "Offline" then else
       f.irisOpen()
@@ -700,7 +704,7 @@ function f.Iriskontrolle()
   end
   if state == "Idle" and Sicherung.control == "On" then
     iriscontrol = "on"
-    alarm.activate()
+    alarm.deactivate()
   end
   if state == "Closing" then
     send = true
@@ -712,6 +716,7 @@ function f.Iriskontrolle()
     zielAdresse = ""
     f.zeigeNachricht("")
     f.zeigeMenu()
+    alarm.deactivate()
     if v.Anzeigetimer then
       event.cancel(v.Anzeigetimer)
     end
