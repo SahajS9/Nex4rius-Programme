@@ -651,6 +651,8 @@ function f.Iriskontrolle()
     end
   end
   if direction == "Incoming" and incode == Sicherung.IDC and iriscontrol == "on" and Sicherung.control == "On" then
+    alarm.setAlarm("incoming")
+    alarm.activate()
     if iris == "Offline" then
       if f.atmosphere(true) then
         sg.sendMessage("IDC Accepted Iris: Offline" .. f.atmosphere(true))
@@ -669,6 +671,8 @@ function f.Iriskontrolle()
     iriscontrol = "off"
     IDCyes = true
   elseif direction == "Incoming" and send == true then
+    alarm.setAlarm("incoming")
+    alarm.activate()
     if f.atmosphere(true) then
       sg.sendMessage("Iris Control: " .. Sicherung.control .. " Iris: " .. iris .. f.atmosphere(true), f.sendeAdressliste())
     else
@@ -723,6 +727,7 @@ function f.Iriskontrolle()
     chevronAnzeige.zeig(false, "ende")
   end
   if state == "Idle" then
+    alarm.deactivate()
     incode = "-"
     wurmloch = "in"
     AddNewAddress = true
@@ -732,6 +737,7 @@ function f.Iriskontrolle()
     einmalBeenden = true
   end
   if state == "Closing" and Sicherung.control == "On" then
+    alarm.deactivate()
     k = "close"
   end
   if state == "Connected" and direction == "Outgoing" and send == true then
@@ -1329,6 +1335,7 @@ function Taste.d()
   f.zeigeHier(Taste.Koordinaten.d_X + 2, Taste.Koordinaten.d_Y, "D " .. sprachen.abschalten, 0)
   sg.disconnect()
   if state == "Connected" and direction == "Incoming" then
+    alarm.deactivate()
     sg.sendMessage("Request: Disconnect Stargate")
     f.zeigeNachricht(sprachen.senden .. sprachen.aufforderung .. ": " .. sprachen.stargateAbschalten .. " " .. sprachen.stargateName)
   else
