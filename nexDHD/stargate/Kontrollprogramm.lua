@@ -106,7 +106,7 @@ local ersetzen                  = loadfile("/stargate/sprache/ersetzen.lua")(spr
 local sg                        = component.getPrimary("stargate")
 local screen                    = component.getPrimary("screen") or {}
 local alarm                     = component.os_alarm
-alarm.setRange(15)
+alarm.setRange(2)
 
 local Bildschirmbreite, Bildschirmhoehe = gpu.getResolution()
 local max_Bildschirmbreite, max_Bildschirmhoehe = gpu.maxResolution()
